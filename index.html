@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خدمات مساج - الحجز</title>
+<title>حجز خدمات مساج</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
 background:url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874") center/cover no-repeat fixed;
-color:white;
 display:flex;
 justify-content:center;
 padding:20px;
+color:white;
 }
 
 .container{
@@ -22,7 +22,7 @@ max-width:450px;
 background:rgba(0,0,0,0.75);
 backdrop-filter:blur(10px);
 padding:20px;
-border-radius:18px;
+border-radius:15px;
 }
 
 h2{
@@ -50,8 +50,14 @@ button:hover{
 opacity:0.9;
 }
 
-.step{display:none;}
-.active{display:block;}
+/* مهم جداً */
+.step{
+display:none;
+}
+
+.step.active{
+display:block;
+}
 
 #msg{
 text-align:center;
@@ -99,8 +105,81 @@ font-weight:bold;
 <!-- STEP 2 -->
 <div id="step2" class="step">
 
-<p style="text-align:center;">💳 رقم الحساب: 00799999004286372491</p>
+<p style="text-align:center;">
+💳 رقم الحساب: 00799999004286372491
+</p>
 
 <input type="file" id="proof">
 
-<button onclick="
+<button onclick="send()">تأكيد الحجز</button>
+
+<button onclick="backStep()" style="background:#444;color:white;">
+رجوع
+</button>
+
+<p id="msg"></p>
+
+</div>
+
+</div>
+
+<script>
+
+/* =====================
+   التنقل بين الخطوات
+===================== */
+function nextStep(){
+
+document.getElementById("step1").classList.remove("active");
+document.getElementById("step2").classList.add("active");
+
+}
+
+function backStep(){
+
+document.getElementById("step2").classList.remove("active");
+document.getElementById("step1").classList.add("active");
+
+}
+
+/* =====================
+   إرسال إلى Telegram
+===================== */
+async function send(){
+
+let name=document.getElementById("name").value;
+let lastname=document.getElementById("lastname").value;
+let phone=document.getElementById("phone").value;
+let state=document.getElementById("state").value;
+let service=document.getElementById("service").value;
+let proof=document.getElementById("proof").files[0];
+
+if(!name||!lastname||!phone){
+alert("املأ جميع البيانات");
+return;
+}
+
+if(!proof){
+alert("ارفع وصل الدفع");
+return;
+}
+
+/* 🔴 ضع بياناتك هنا */
+let token="PUT_YOUR_TOKEN_HERE";
+let chat_id="8735699172";
+
+let message=
+`🧾 طلب حجز جديد
+👤 الاسم: ${name}
+👤 اللقب: ${lastname}
+📞 الهاتف: ${phone}
+📍 الولاية: ${state}
+💆 الخدمة: ${service}
+💳 وصل الدفع: مرفوع
+⏰ سيتم الاتصال خلال 15 دقيقة`;
+
+let url=`https://api.telegram.org/bot${token}/sendMessage`;
+
+let res=await fetch(url,{
+method:"POST",
+headers

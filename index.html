@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خدمات مساج - الحجز</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874") center/cover no-repeat fixed;
+color:white;
+display:flex;
+justify-content:center;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:450px;
+background:rgba(0,0,0,0.75);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:18px;
+}
+
+h2{
+text-align:center;
+color:#00ffcc;
+}
+
+input,select,button{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:none;
+outline:none;
+}
+
+button{
+background:#00ffcc;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.step{display:none;}
+.active{display:block;}
+
+#msg{
+text-align:center;
+color:#00ffcc;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>حجز خدمات مساج</h2>
+
+<!-- STEP 1 -->
+<div id="step1" class="step active">
+
+<input type="text" id="name" placeholder="الاسم">
+<input type="text" id="lastname" placeholder="اللقب">
+<input type="tel" id="phone" placeholder="رقم الهاتف">
+
+<select id="state">
+<option>اختر الولاية</option>
+<option>الجزائر</option>
+<option>وهران</option>
+<option>قسنطينة</option>
+<option>باتنة</option>
+<option>بجاية</option>
+<option>سطيف</option>
+<option>عنابة</option>
+<option>تلمسان</option>
+</select>
+
+<select id="service">
+<option>اختر الخدمة</option>
+<option>مساج عادي</option>
+<option>مساج VIP</option>
+</select>
+
+<button onclick="nextStep()">التالي</button>
+
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="step">
+
+<p style="text-align:center;">💳 رقم الحساب: 00799999004286372491</p>
+
+<input type="file" id="proof">
+
+<button onclick="
